@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>HelpPet</title>
+	<meta charset="UTF-8">
+	<style>
+		
+
+		body {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+		
+		}
+		
+		button {
+			margin: 10px;
+			padding: 10px;
+			font-size: 16px;
+		}
+		
+		#horario {
+			font-size: 24px;
+			font-weight: bold;
+			margin: 10px;
+		}
+
+	</style>
+	
+</head>
+
+<body>
+	
+
+	<h1>Selecione um horário</h1>
+	<p>Horário selecionado: <span id="horario"></span></p>
+	<button onclick="add30Min()">+30 min</button>
+    <button onclick="subtract30Min()">-30 min</button>
+	<button onclick="add1Hour()">+1 hora</button>
+    <button onclick="subtract1Hour()">-1 hora</button>
+	<button onclick="salvarHorario()">Salvar Horário</button>
+  <ul id="listaHorarios"></ul>
+</html>
+
+	<script>
+
+		var horarioSelecionado = new Date();
+var horaBrasilia = horarioSelecionado.getUTCHours() - 3;
+horarioSelecionado.setUTCHours(horaBrasilia);
+
+function atualizarHorario() {
+	document.getElementById("horario").textContent = horarioSelecionado.toLocaleString();
+}
+
+function add30Min() {
+	horarioSelecionado.setMinutes(horarioSelecionado.getMinutes() + 30);
+	atualizarHorario();
+}
+
+function subtract30Min() {
+	horarioSelecionado.setMinutes(horarioSelecionado.getMinutes() - 30);
+	atualizarHorario();
+}
+
+function add1Hour() {
+	horarioSelecionado.setHours(horarioSelecionado.getHours() + 1);
+	atualizarHorario();
+}
+
+function subtract1Hour() {
+	horarioSelecionado.setHours(horarioSelecionado.getHours() - 1);
+	atualizarHorario();
+}
+
+atualizarHorario();
+
+var listaHorarios = [];
+
+function salvarHorario() {
+	listaHorarios.push(horarioSelecionado.toLocaleString());
+	atualizarListaHorarios();
+  }
+
+  function atualizarListaHorarios() {
+	var listaHorariosElemento = document.getElementById("listaHorarios");
+	listaHorariosElemento.innerHTML = "";
+	for (var i = 0; i < listaHorarios.length; i++) {
+	  var item = document.createElement("li");
+	  item.textContent = listaHorarios[i];
+	  listaHorariosElemento.appendChild(item);
+	}
+  }
+  function salvarHorario() {
+	if (listaHorarios.length > 0) {
+	  listaHorarios.pop();
+	}
+	listaHorarios.push(horarioSelecionado.toLocaleString());
+	atualizarListaHorarios();
+  }
+  atualizarListaHorarios();
+  
+  
+
+	</script>
+</body>
+</html>
